@@ -1,38 +1,61 @@
 import React from 'react'
-
-function ShowcaseCard({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="glass p-6 rounded-2xl border border-white/10 shadow-lg">
-      <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
-      <p className="text-sm text-white/80">{description}</p>
-      <div className="mt-4">
-        <button className="inline-flex items-center gap-2 bg-accent text-black px-3 py-1 rounded-md text-sm">View</button>
-      </div>
-    </div>
-  )
-}
+import Header from './Components/Header'
+import Services from './Components/Services'
+import ProjectHighlight from './Components/ProjectHighlight'
+import Skills from './Components/Skills'
+import Contact from './Components/Contact'
+import { ArrowUp } from 'lucide-react'
 
 export default function App() {
-  return (
-    <div className="min-h-screen bg-hero bg-cover bg-center text-white flex flex-col">
-      <header className="py-8">
-        <div className="container mx-auto px-6">
-          <h1 className="text-4xl font-bold">My Apps</h1>
-          <p className="mt-2 text-white/70">A selection of projects I've built.</p>
-        </div>
-      </header>
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
-      <main className="container mx-auto px-6 pb-16 flex-1">
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <ShowcaseCard title="Project One" description="A short description of project one." />
-          <ShowcaseCard title="Project Two" description="A short description of project two." />
-          <ShowcaseCard title="Project Three" description="A short description of project three." />
-        </section>
+  return (
+    <div className="min-h-screen bg-hero bg-cover bg-center text-white">
+      <Header />
+
+      <main className="relative">
+        <Services />
+        <ProjectHighlight />
+        <Skills />
+        <Contact />
       </main>
 
-      <footer className="py-8">
-        <div className="container mx-auto px-6 text-sm text-white/60">© {new Date().getFullYear()} — Built with React + Vite + Tailwind</div>
+      <footer className="relative py-12 border-t border-white/10">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+              <div className="text-lg font-bold mb-1">Israel Rosas</div>
+              <div className="text-sm text-white/60">Mobile App Developer · React Native · TypeScript</div>
+            </div>
+            
+            <div className="flex items-center gap-6">
+              <a href="tel:2485648645" className="text-sm text-white/70 hover:text-accent transition-colors">
+                248-564-8645
+              </a>
+              <a href="mailto:israelrosassalinas@hotmail.com" className="text-sm text-white/70 hover:text-accent transition-colors">
+                Email
+              </a>
+            </div>
+          </div>
+          
+          <div className="mt-8 pt-8 border-t border-white/5 text-center">
+            <p className="text-sm text-white/50">
+              © {new Date().getFullYear()} Israel Rosas. All rights reserved.
+            </p>
+          </div>
+        </div>
       </footer>
+
+      {/* Scroll to top button */}
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-8 right-8 p-3 rounded-full bg-accent hover:bg-accent/90 text-black shadow-lg transition-all transform hover:scale-110 z-50"
+        aria-label="Scroll to top"
+      >
+        <ArrowUp className="w-5 h-5" />
+      </button>
     </div>
   )
 }
