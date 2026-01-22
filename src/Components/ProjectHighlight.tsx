@@ -1,13 +1,28 @@
 import React from 'react'
-import { Fish, MapPin, Users, Star, ExternalLink, Award, Smartphone, Wifi } from 'lucide-react'
+import { Fish, MapPin, Users, Star, ExternalLink, Award, Smartphone, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function ProjectHighlight(){
   const features = [
     { icon: MapPin, text: "Interactive fishing location maps" },
     { icon: Users, text: "Social features & community" },
-    { icon: Wifi, text: "Offline support & sync" },
+    { icon: Sparkles, text: "Artificial Intelligence for fish species recognition" },
     { icon: Smartphone, text: "Native iOS & Android experience" }
   ]
+
+  // Use import.meta.env.BASE_URL to handle GitHub Pages base path
+  const images = Array.from({ length: 11 }, (_, i) => `${import.meta.env.BASE_URL}IMG_${i + 1}.PNG`)
+
+  const scrollContainer = React.useRef<HTMLDivElement>(null)
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainer.current) {
+      const scrollAmount = 400
+      scrollContainer.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      })
+    }
+  }
 
   return (
     <section className="py-16 relative" id="projects">
@@ -85,6 +100,58 @@ export default function ProjectHighlight(){
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Screenshot Gallery */}
+        <div className="max-w-5xl mx-auto mt-12">
+          <div className="text-center mb-6">
+            <h3 className="text-2xl font-bold">App Screenshots</h3>
+            <p className="text-white/60 mt-2">Explore the FTS Fishing App interface</p>
+          </div>
+          
+          <div className="relative group">
+            {/* Scroll buttons */}
+            <button
+              onClick={() => scroll('left')}
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 hover:bg-black/80 transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+            
+            <button
+              onClick={() => scroll('right')}
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 hover:bg-black/80 transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+
+            {/* Scrollable container */}
+            <div
+              ref={scrollContainer}
+              className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-4 px-2"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {images.map((img, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-56 md:w-72 aspect-[9/19.5] glass rounded-2xl overflow-hidden border border-white/10 hover:scale-105 transition-transform duration-300 bg-white/5"
+                >
+                  <img
+                    src={img}
+                    alt={`FTS Fishing App Screenshot ${index + 1}`}
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                    onError={(e) => {
+                      console.error(`Failed to load image: ${img}`)
+                      e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="400"%3E%3Crect fill="%23222" width="200" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" fill="%23888"%3EImage ${index + 1}%3C/text%3E%3C/svg%3E'
+                    }}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>

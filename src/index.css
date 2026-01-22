@@ -37,3 +37,13 @@
 .bg-accent {
   background-color: var(--accent);
 }
+
+/* Hide scrollbar for image gallery */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
