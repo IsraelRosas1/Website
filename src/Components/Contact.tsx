@@ -1,5 +1,5 @@
 import React from 'react'
-import { Phone, Mail, MessageSquare, Send, MapPin, Clock } from 'lucide-react'
+import { Phone, Mail, MessageSquare, Send, MapPin, Clock, Linkedin } from 'lucide-react'
 
 export default function Contact(){
   return (
@@ -60,6 +60,22 @@ export default function Contact(){
                       <div className="text-sm text-white/50">Available for remote & local projects</div>
                     </div>
                   </div>
+
+                  <a 
+                    href="https://www.linkedin.com/in/israel-rosas-salinas-1850341b4/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-all group"
+                  >
+                    <div className="p-3 rounded-lg bg-accent/10 group-hover:bg-accent/20 transition-colors">
+                      <Linkedin className="w-6 h-6 text-accent" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-white/60 mb-1">LinkedIn</div>
+                      <div className="font-semibold text-lg">Israel Rosas Salinas</div>
+                      <div className="text-sm text-white/50">Connect with me professionally</div>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ import Services from './Components/Services'
 import ProjectHighlight from './Components/ProjectHighlight'
 import Skills from './Components/Skills'
 import Contact from './Components/Contact'
-import { ArrowUp } from 'lucide-react'
+import { ArrowUp, Linkedin } from 'lucide-react'
 
 export default function App() {
   const scrollToTop = () => {
@@ -36,6 +36,10 @@ export default function App() {
               </a>
               <a href="mailto:israelrosassalinas@hotmail.com" className="text-sm text-white/70 hover:text-accent transition-colors">
                 Email
+              </a>
+              <a href="https://www.linkedin.com/in/israel-rosas-salinas-1850341b4/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-white/70 hover:text-accent transition-colors">
+                <Linkedin className="w-4 h-4" />
+                LinkedIn
               </a>
             </div>
           </div>

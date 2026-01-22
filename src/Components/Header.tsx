@@ -1,5 +1,5 @@
 import React from 'react'
-import { Smartphone, Mail, ArrowRight } from 'lucide-react'
+import { Smartphone, Mail, ArrowRight, Linkedin } from 'lucide-react'
 
 export default function Header() {
   return (
@@ -55,6 +55,16 @@ export default function Header() {
               <div>
                 <div className="text-xs text-white/60">Email me</div>
                 <div className="text-sm font-semibold">israelrosassalinas@hotmail.com</div>
+              </div>
+            </a>
+            
+            <a href="https://www.linkedin.com/in/israel-rosas-salinas-1850341b4/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-accent/20 transition-colors">
+                <Linkedin className="w-5 h-5 text-accent" />
+              </div>
+              <div>
+                <div className="text-xs text-white/60">Connect on</div>
+                <div className="text-sm font-semibold">LinkedIn</div>
               </div>
             </a>
           </div>
