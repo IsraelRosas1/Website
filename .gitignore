@@ -1,0 +1,24 @@
+# ...existing code...
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# misc
+.DS_Store
+
+# Local env files
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Sanity Studio
+/personalwebsite
+
+# Old Vite files
+/dist
+/src
