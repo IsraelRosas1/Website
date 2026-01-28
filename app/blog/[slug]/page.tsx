@@ -2,9 +2,52 @@ import { client } from '@/lib/sanity'
 import { PortableText } from '@portabletext/react'
 import { createImageUrlBuilder } from '@sanity/image-url'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 
 const builder = createImageUrlBuilder(client)
 const urlFor = (source: any) => builder.image(source)
+
+interface BlogPostProps {
+  params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: BlogPostProps): Promise<Metadata> {
+  const { slug } = await params
+  const query = `*[_type == "post" && slug.current == $slug][0] {
+    title,
+    mainImage,
+    publishedAt,
+    "excerpt": pt::text(body)[0...160]
+  }`
+  const post = await client.fetch(query, { slug })
+
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+    }
+  }
+
+  const ogImage = post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined
+
+  return {
+    title: `${post.title} | Israel Rosas Blog`,
+    description: post.excerpt || `Read ${post.title} on Israel Rosas' blog`,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt || `Read ${post.title} on Israel Rosas' blog`,
+      type: 'article',
+      publishedTime: post.publishedAt,
+      authors: ['Israel Rosas'],
+      images: ogImage ? [{ url: ogImage }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt || `Read ${post.title} on Israel Rosas' blog`,
+      images: ogImage ? [ogImage] : [],
+    },
+  }
+}
 
 const components = {
   types: {
@@ -33,11 +76,7 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function BlogPost({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
-}) {
+export default async function BlogPost({ params }: BlogPostProps) {
   const { slug } = await params
   
   const query = `*[_type == "post" && slug.current == $slug][0] {
@@ -62,8 +101,25 @@ export default async function BlogPost({
     )
   }
 
+  // JSON-LD structured data for SEO
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    datePublished: post.publishedAt,
+    author: {
+      '@type': 'Person',
+      name: 'Israel Rosas',
+    },
+    image: post.mainImage ? urlFor(post.mainImage).url() : undefined,
+  }
+
   return (
     <div className="min-h-screen bg-hero bg-cover bg-center text-white py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <article className="max-w-3xl mx-auto px-6">
         <Link 
           href="/blog" 

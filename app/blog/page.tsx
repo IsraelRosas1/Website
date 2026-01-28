@@ -1,5 +1,16 @@
 import { client } from '@/lib/sanity'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description: 'Articles and insights on mobile app development, React Native, TypeScript, and modern web technologies.',
+  openGraph: {
+    title: 'Blog | Israel Rosas',
+    description: 'Articles and insights on mobile app development, React Native, TypeScript, and modern web technologies.',
+    type: 'website',
+  },
+}
 
 async function getPosts() {
   const query = `*[_type == "post"] | order(publishedAt desc) {
