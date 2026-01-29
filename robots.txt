@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://israelrosas1.github.io/Website/sitemap.xml

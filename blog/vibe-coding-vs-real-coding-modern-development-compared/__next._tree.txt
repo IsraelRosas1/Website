@@ -1,0 +1,5 @@
+:HL["/Website/_next/static/chunks/6ac3b167f07b074c.css","style"]
+:HL["https://cdn.sanity.io/images/v0xnc8pv/production/cef390689c583eeff8b92d7c0000a3f5ac2b520e-1213x832.png","image"]
+:HL["https://cdn.sanity.io/images/v0xnc8pv/production/b8c940ee8ad4d6860fb8a42447a13747a2f1c765-1213x832.png","image"]
+:HL["https://cdn.sanity.io/images/v0xnc8pv/production/d8ecdfad7d3a66992109f0506a7f31c5afe94b55-1213x832.png","image"]
+0:{"buildId":"mG9BGxaPVqqgTX6W3YNEM","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"blog","paramType":null,"paramKey":"blog","hasRuntimePrefetch":false,"slots":{"children":{"name":"slug","paramType":"d","paramKey":"vibe-coding-vs-real-coding-modern-development-compared","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
