@@ -4,6 +4,8 @@ import { createImageUrlBuilder } from '@sanity/image-url'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
+export const revalidate = 60 // Revalidate every 60 seconds
+
 const builder = createImageUrlBuilder(client)
 const urlFor = (source: any) => builder.image(source)
 
@@ -65,6 +67,104 @@ const components = {
         )}
       </div>
     ),
+    youtube: ({ value }: any) => {
+      const { url } = value
+      // Extract video ID from various YouTube URL formats
+      const getYouTubeId = (url: string) => {
+        const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
+        const match = url.match(regExp)
+        return match && match[7].length === 11 ? match[7] : null
+      }
+      
+      const videoId = getYouTubeId(url)
+      
+      if (!videoId) return null
+      
+      return (
+        <div className="my-10">
+          <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+            <iframe
+              className="absolute top-0 left-0 w-full h-full rounded-xl"
+              src={`https://www.youtube.com/embed/${videoId}`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )
+    },
+    videoFile: ({ value }: any) => {
+      if (!value?.asset?._ref) return null
+      
+      // Construct Sanity file URL
+      const projectId = client.config().projectId
+      const dataset = client.config().dataset
+      const [, id, extension] = value.asset._ref.split('-')
+      const videoUrl = `https://cdn.sanity.io/files/${projectId}/${dataset}/${id}.${extension}`
+      
+      return (
+        <div className="my-10">
+          <video
+            controls
+            className="w-full rounded-xl"
+            preload="metadata"
+          >
+            <source src={videoUrl} type={`video/${extension}`} />
+            Your browser does not support the video tag.
+          </video>
+          {value.caption && (
+            <p className="text-sm text-gray-400 mt-2 text-center">
+              {value.caption}
+            </p>
+          )}
+        </div>
+      )
+    },
+    table: ({ value }: any) => {
+      const { caption, rows } = value
+      
+      if (!rows || rows.length === 0) return null
+      
+      return (
+        <div className="my-10 overflow-x-auto">
+          {caption && (
+            <p className="text-lg font-semibold text-white mb-3 text-center">
+              {caption}
+            </p>
+          )}
+          <table className="min-w-full border-collapse border border-white/20 rounded-lg overflow-hidden">
+            <tbody>
+              {rows.map((row: any, rowIndex: number) => (
+                <tr 
+                  key={rowIndex}
+                  className={row.isHeader ? 'bg-accent/20' : rowIndex % 2 === 0 ? 'bg-white/5' : 'bg-white/10'}
+                >
+                  {row.cells?.map((cell: string, cellIndex: number) => (
+                    row.isHeader ? (
+                      <th 
+                        key={cellIndex}
+                        className="border border-white/20 px-4 py-3 text-left font-semibold text-white"
+                      >
+                        {cell}
+                      </th>
+                    ) : (
+                      <td 
+                        key={cellIndex}
+                        className="border border-white/20 px-4 py-3 text-white"
+                      >
+                        {cell}
+                      </td>
+                    )
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
+    },
   },
 }
 
