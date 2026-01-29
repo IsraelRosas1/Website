@@ -9,9 +9,8 @@ export default function ProjectHighlight(){
     { icon: Smartphone, text: "Native iOS & Android experience" }
   ]
 
-  // Use basePath for GitHub Pages deployment
-  const basePath = process.env.NODE_ENV === 'production' ? '/Website' : ''
-  const images = Array.from({ length: 11 }, (_, i) => `${basePath}/IMG_${i + 1}.PNG`)
+  // Images are in the public folder, so use root path
+  const images = Array.from({ length: 11 }, (_, i) => `/IMG_${i + 1}.PNG`)
 
   const scrollContainer = React.useRef<HTMLDivElement>(null)
 
